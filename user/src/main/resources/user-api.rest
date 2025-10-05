@@ -1,3 +1,6 @@
 
 ###
-GET localhost:2003/register
+GET localhost:2002/api/occupation
+
+###
+GET localhost:2003/api/user/login
