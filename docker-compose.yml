@@ -1,0 +1,50 @@
+services:
+  patient:
+    container_name: patient_container
+    image: postgres:14
+    environment:
+      POSTGRES_DB: patient
+      POSTGRES_USER: admin@yandev.com
+      POSTGRES_PASSWORD: mypassword
+    networks:
+      - network
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_patient:/var/lib/postgresql/data
+
+  user:
+    container_name: user_container
+    image: postgres:14
+    environment:
+      POSTGRES_DB: user_db
+      POSTGRES_USER: admin@yandev.com
+      POSTGRES_PASSWORD: mypassword
+    networks:
+      - network
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_patient:/var/lib/postgresql/data
+
+
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_microservice_container
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8081:80"
+    depends_on:
+      - patient
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge
+
+volumes:
+  postgres_patient:
