@@ -3,4 +3,4 @@
 GET localhost:2002/api/occupation
 
 ###
-GET localhost:2003/api/user/login
+POST localhost:2003/api/auth/register
