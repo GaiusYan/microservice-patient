@@ -1,29 +1,25 @@
 package com.yandev.authentication;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AuthenticationController {
 
 
-    @GetMapping("/private")
-    public String privateRoute(){
-        return "private";
-    }
+    private final AuthenticationService authenticationService;
 
-    @GetMapping("/public")
-    public String publicRoute(){
-        return "public";
+    public AuthenticationController(final AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
     }
-
 
     @PostMapping("/auth/register")
-    public String registerRoute(@RequestBody RegisterRequest request){
-        return "register" + request.getUsername();
+    public ResponseEntity<?> register(@RequestBody AuthenticationRequest authenticationRequest){
+        return ResponseEntity.ok(this.authenticationService.register(authenticationRequest));
     }
 
     @PostMapping("/auth/login")
-    public String login(@RequestBody AuthenticationRequest request){
-        return "login" + request.getUsername();
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws IllegalAccessException {
+        return ResponseEntity.ok(this.authenticationService.login(loginRequest));
     }
 }

@@ -1,6 +1,0 @@
-
-###
-GET localhost:2002/api/occupation
-
-###
-POST localhost:2003/api/auth/register

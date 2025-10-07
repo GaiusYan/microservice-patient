@@ -18,4 +18,13 @@ public class UserService implements UserDetailsService {
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
        return this.userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
+
+
+    public User register(User user) {
+        boolean exists = this.userRepository.existsByUsername(user.getUsername());
+        if(exists)
+            throw new IllegalArgumentException("Username already exists");
+
+        return this.userRepository.save(user);
+    }
 }

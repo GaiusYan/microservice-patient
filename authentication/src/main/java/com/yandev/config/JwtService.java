@@ -18,8 +18,6 @@ import java.util.function.Function;
 public class JwtService {
 
     private final UserService userService;
-    private final String ENCRYPTION_KEY = "32768012345678901234567890123456";
-    private final String BEARER = "bearer";
 
     public JwtService(UserService userService) {
         this.userService = userService;
@@ -39,7 +37,8 @@ public class JwtService {
         claims.put(Claims.EXPIRATION, currentTimeExpiration);
         claims.put(Claims.SUBJECT, user.getUsername());
         claims.put(Claims.ISSUED_AT, currentTime);
-        return Map.of(Claims.SUBJECT, Jwts
+        String BEARER = "Bearer";
+        return Map.of(BEARER, Jwts
                 .builder()
                 .setIssuedAt(new Date(currentTime))
                 .setExpiration(new Date(currentTimeExpiration))
@@ -50,6 +49,7 @@ public class JwtService {
     }
 
     private Key getKey(){
+        String ENCRYPTION_KEY = "dd5e9770f0a84810f98cdf97b96c99fc9c928643b3a46394ce0a02ef6dd7df9f";
         final byte[] decoders = Decoders.BASE64.decode(ENCRYPTION_KEY);
         return Keys.hmacShaKeyFor(decoders);
     }

@@ -17,6 +17,14 @@ spring:
     hibernate:
         ddl-auto: update
 
+logging:
+  level:
+    org.springframework: DEBUG
+    org.hibernate: INFO
+    root: INFO
+
+
+
 DB_USERNAME: 'admin@yandev.com'
 DB_PASSWORD: 'mypassword'
 DB_URL: 'jdbc:postgresql://localhost:5432/user'
