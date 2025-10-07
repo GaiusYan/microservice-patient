@@ -1,0 +1,22 @@
+server:
+  port: 2005
+
+spring:
+  application:
+    name: notification
+  datasource:
+    password: ${DB_PASSWORD}
+    username: ${DB_USERNAME}
+    url: ${DB_URL}
+  jpa:
+    properties:
+      hibernate:
+        show_sql: 'true'
+        format_sql: 'true'
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+        ddl-auto: update
+
+DB_USERNAME: 'admin@yandev.com'
+DB_PASSWORD: 'mypassword'
+DB_URL: 'jdbc:postgresql://localhost:5432/user'

@@ -11,6 +11,7 @@
     <module>patient</module>
     <module>eureka-server</module>
     <module>user</module>
+    <module>authentication</module>
   </modules>
 
 
