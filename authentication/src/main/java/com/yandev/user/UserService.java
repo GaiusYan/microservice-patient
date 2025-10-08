@@ -24,7 +24,6 @@ public class UserService implements UserDetailsService {
         boolean exists = this.userRepository.existsByUsername(user.getUsername());
         if(exists)
             throw new IllegalArgumentException("Username already exists");
-
         return this.userRepository.save(user);
     }
 }

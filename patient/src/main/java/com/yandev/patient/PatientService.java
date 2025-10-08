@@ -2,6 +2,8 @@ package com.yandev.patient;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PatientService {
 
@@ -11,5 +13,7 @@ public class PatientService {
         this.patientRepository = patientRepository;
     }
 
-
+    public List<Patient> getAllPatients() {
+        return this.patientRepository.findAll();
+    }
 }

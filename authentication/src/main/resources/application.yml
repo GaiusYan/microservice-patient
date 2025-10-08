@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: notification
+    name: authentication
   datasource:
     password: ${DB_PASSWORD}
     username: ${DB_USERNAME}
@@ -17,12 +17,28 @@ spring:
     hibernate:
         ddl-auto: update
 
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: patient
+#          uri: http://localhost:8081
+#          predicates:
+#            - Path=/api/patient/**
+#          filters:
+#            - StripPrefix=1
+#
+#
+#
+#      default-filters:
+#        - name: DedupeResponseHeader
+#          args:
+#            strategy: RETAIN_FIRST
+
 logging:
   level:
     org.springframework: DEBUG
     org.hibernate: INFO
     root: INFO
-
 
 
 DB_USERNAME: 'admin@yandev.com'
