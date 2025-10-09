@@ -11,15 +11,15 @@ public class RoleConfig {
 
     final List<String> roleNames = List.of("ROLE_ADMIN", "ROLE_PATIENT", "ROLE_DOCTOR", "ROLE_RECEPTIONIST");
 
-    @Bean
-    public CommandLineRunner commandLineRunner(RoleService roleService) {
-        return args -> {
-            for (String roleName : roleNames) {
-                roleService.createRole(Role
-                        .builder()
-                        .name(roleName)
-                        .build());
-            }
-        };
-    }
+//    @Bean
+//    public CommandLineRunner commandLineRunner(RoleService roleService) {
+//        return args -> {
+//            for (String roleName : roleNames) {
+//                roleService.createRole(Role
+//                        .builder()
+//                        .name(roleName)
+//                        .build());
+//            }
+//        };
+//    }
 }

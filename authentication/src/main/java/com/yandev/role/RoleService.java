@@ -21,10 +21,10 @@ public class RoleService {
         return this.roleRepository.findById(id).orElseThrow(() -> new RuntimeException("Role not found"));
     }
 
-    public Role createRole(Role role) {
+    public void createRole(Role role) {
         if (roleRepository.existsByName(role.getName())) {
             throw new RuntimeException("Role already exists");
         }
-        return this.roleRepository.save(role);
+        this.roleRepository.save(role);
     }
 }
