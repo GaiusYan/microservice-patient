@@ -31,12 +31,19 @@ public class OccupationController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Occupation> getOccupation(@PathVariable Long id) {
+    public ResponseEntity<Occupation> getOccupation(@PathVariable("id") Long id) {
         return ResponseEntity.ok(this.occupationService.getOccupationById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Occupation> updateOccupation(@PathVariable Long id, @RequestBody Occupation occupation) {
+    public ResponseEntity<Occupation> updateOccupation(@PathVariable("id") Long id, @RequestBody Occupation occupation) {
         return ResponseEntity.ok(this.occupationService.updateOccupation(occupation,id));
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteOccupation(@PathVariable("id") Long id) {
+       this.occupationService.deleteOccupation(id);
+       return ResponseEntity.noContent().build();
     }
 }

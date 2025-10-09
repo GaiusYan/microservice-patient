@@ -22,14 +22,11 @@ public class OccupationService {
     }
 
     public Occupation createOccupation(Occupation occupation) {
-        this.occupationRepository.findByName(occupation).orElseThrow(() -> new IllegalArgumentException("Occupation already exists"));
+        this.occupationRepository.findByName(occupation.getName()).orElseThrow(() -> new IllegalArgumentException("Occupation already exists"));
         return occupationRepository.save(occupation);
     }
 
     public List<Occupation> createOccupation(List<Occupation> occupations) {
-        for (Occupation occupation : occupations) {
-            this.occupationRepository.findByName(occupation).orElseThrow(() -> new IllegalArgumentException("Occupation already exists"));
-        }
         return occupationRepository.saveAll(occupations);
     }
 
