@@ -2,6 +2,7 @@ package com.yandev.authentication;
 
 import com.yandev.config.BcryptPassword;
 import com.yandev.config.JwtService;
+import com.yandev.role.RoleService;
 import com.yandev.user.User;
 import com.yandev.user.UserService;
 import lombok.var;
@@ -11,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.Set;
 
 @Service
 public class AuthenticationService {
@@ -19,12 +21,14 @@ public class AuthenticationService {
     private final BcryptPassword bcryptPassword;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final RoleService roleService;
 
-    public AuthenticationService(final UserService userService, final BcryptPassword bcryptPassword, AuthenticationManager authenticationManager, JwtService jwtService) {
+    public AuthenticationService(final UserService userService, final BcryptPassword bcryptPassword, AuthenticationManager authenticationManager, JwtService jwtService, RoleService roleService) {
         this.userService = userService;
         this.bcryptPassword = bcryptPassword;
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
+        this.roleService = roleService;
     }
 
 
@@ -33,6 +37,7 @@ public class AuthenticationService {
         user.setUsername(authenticationRequest.getUsername());
         user.setPassword(bcryptPassword.passwordEncoder().encode(authenticationRequest.getPassword()));
         user.setEnabled(false);
+        user.setRole(Set.of(this.roleService.getRoleById(2L)));
         return this.userService.register(user);
     }
 
