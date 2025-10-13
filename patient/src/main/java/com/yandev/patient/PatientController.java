@@ -20,7 +20,7 @@ public class PatientController {
 
 
     @PostMapping
-    public ResponseEntity<?> createPatient(@RequestBody Patient patient) {
-        return ResponseEntity.ok(this.patientService.createPatient(patient));
+    public Patient createPatient(@RequestBody Patient patient) {
+        return this.patientService.createPatient(patient);
     }
 }

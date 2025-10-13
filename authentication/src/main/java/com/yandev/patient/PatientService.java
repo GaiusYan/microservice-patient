@@ -35,7 +35,6 @@ public class PatientService {
         Optional<Patient> patientOptional = this.patientRepository.findById(id);
         if (patientOptional.isPresent()) {
             Patient patientExisting = patientOptional.get();
-
             if (Objects.nonNull(patient.getName()) && Objects.nonNull(patientExisting.getName())) {
                 patientExisting.setName(patient.getName());
             }

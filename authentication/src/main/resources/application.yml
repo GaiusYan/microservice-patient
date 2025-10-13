@@ -1,5 +1,5 @@
 server:
-  port: 2005
+  port: 2006
   error:
     include-message: always
     include-binding-errors: always
@@ -21,22 +21,6 @@ spring:
     hibernate:
         ddl-auto: update
 
-#  cloud:
-#    gateway:
-#      routes:
-#        - id: patient
-#          uri: http://localhost:8081
-#          predicates:
-#            - Path=/api/patient/**
-#          filters:
-#            - StripPrefix=1
-#
-#
-#
-#      default-filters:
-#        - name: DedupeResponseHeader
-#          args:
-#            strategy: RETAIN_FIRST
 
 logging:
   level:
@@ -44,6 +28,9 @@ logging:
     org.hibernate: INFO
     root: INFO
 
+patient:
+  application:
+    name: patient
 
 DB_USERNAME: 'admin@yandev.com'
 DB_PASSWORD: 'mypassword'

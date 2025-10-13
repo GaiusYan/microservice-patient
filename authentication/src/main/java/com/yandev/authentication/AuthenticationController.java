@@ -23,4 +23,10 @@ public class AuthenticationController {
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws IllegalAccessException {
         return ResponseEntity.ok(this.authenticationService.login(loginRequest));
     }
+
+
+    @PostMapping("/auh/verify")
+    public ResponseEntity<?> verify(@RequestBody String token) throws IllegalAccessException {
+        return ResponseEntity.ok(this.authenticationService.verify(token));
+    }
 }
