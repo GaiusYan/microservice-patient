@@ -16,7 +16,6 @@ public class UserService implements UserDetailsService {
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-
     }
 
     @Override
@@ -29,7 +28,13 @@ public class UserService implements UserDetailsService {
         boolean exists = this.userRepository.existsByUsername(user.getUsername());
         if(exists)
             throw new IllegalArgumentException("Username already exists");
-
         return this.userRepository.save(user);
+    }
+
+    public void deleteUser(Long id) {
+        boolean exists = this.userRepository.existsById(id);
+        if(!exists)
+            throw new IllegalArgumentException("User not found");
+        this.userRepository.deleteById(id);
     }
 }
