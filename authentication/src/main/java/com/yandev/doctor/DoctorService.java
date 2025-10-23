@@ -58,4 +58,16 @@ public class DoctorService {
         this.doctorRepository.deleteById(id);
 
     }
+
+    public Doctor getDoctorById(Long doctorId) {
+        return this.doctorRepository
+                .findById(doctorId)
+                .orElseThrow(() -> new IllegalArgumentException("Doctor not found"));
+    }
+
+    public Doctor getDoctorByEmail(String email) {
+        return this.doctorRepository
+                .findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Doctor not found"));
+    }
 }

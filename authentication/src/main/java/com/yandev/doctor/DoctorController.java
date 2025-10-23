@@ -1,5 +1,6 @@
 package com.yandev.doctor;
 
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,11 @@ public class DoctorController {
         return ResponseEntity.ok(doctorService.createDoctor(doctorRequest));
     }
 
+    @GetMapping("/{email}")
+    public ResponseEntity<?> getDoctorByMail(@PathVariable("email") String email) {
+        return ResponseEntity.ok(doctorService.getDoctorByEmail(email));
+    }
+    
     @GetMapping
     public ResponseEntity<?> getAllDoctors() {
         return ResponseEntity.ok(doctorService.getDoctors());

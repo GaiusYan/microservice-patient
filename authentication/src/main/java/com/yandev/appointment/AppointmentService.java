@@ -36,7 +36,12 @@ public class AppointmentService {
         return this.appointmentRepository.findByPatient(patient);
     }
 
-    public List<Appointment> getAppointmentByDoctor(Doctor doctor) {
+    public List<Appointment> getAppointmentByDoctor(Long doctorId) {
+        Doctor doctor = this.doctorService.getDoctorById(doctorId);
         return this.appointmentRepository.findByDoctor(doctor);
+    }
+
+    public List<Appointment> createAllAppointment(List<Appointment> appointments) {
+        return this.appointmentRepository.saveAll(appointments);
     }
 }
