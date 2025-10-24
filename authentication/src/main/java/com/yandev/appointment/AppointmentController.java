@@ -29,4 +29,9 @@ public class AppointmentController {
     public ResponseEntity<?> addAppointment(@RequestBody List<Appointment> appointments) {
         return ResponseEntity.ok(this.appointmentService.createAllAppointment(appointments));
     }
+
+    @PostMapping
+    public ResponseEntity<?> createAppointment(@RequestBody AppointmentRequest appointmentRequest) {
+        return ResponseEntity.ok(this.appointmentService.createAppointment(appointmentRequest));
+    }
 }

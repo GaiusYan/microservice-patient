@@ -30,13 +30,15 @@ public class Appointment {
     )
     private Long id;
     private LocalDate appointmentDate;
-    private LocalTime appointmentTime;
+    private LocalTime appointmentTimeStart;
+    private LocalTime appointmentTimeEnd;
     private String status;
+    private String notes;
+    private String diagnosis;
+    private String dateAppointment;
     private LocalDate createdAt;
     @ManyToOne
     private Patient patient;
     @ManyToOne
     private Doctor doctor;
-    @OneToMany
-    private List<Motif> motifs;
 }
