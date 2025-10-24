@@ -33,6 +33,7 @@ public class User  implements UserDetails {
     private String username;
     private String password;
     private boolean enabled;
+    private Long userId;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",

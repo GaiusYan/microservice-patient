@@ -38,8 +38,10 @@ public class DoctorService {
                 .password(passwordEncoder.encode(doctorRequest.getPassword()))
                 .build();
 
+        Doctor doctorRegistered =  doctorRepository.save(doctor);
+        user.setUserId(doctorRegistered.getId());
         this.userService.register(user);
-        return doctorRepository.save(doctor);
+        return doctorRegistered;
     }
 
      public List<Doctor> getDoctors() {
@@ -65,9 +67,4 @@ public class DoctorService {
                 .orElseThrow(() -> new IllegalArgumentException("Doctor not found"));
     }
 
-    public Doctor getDoctorByEmail(String email) {
-        return this.doctorRepository
-                .findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("Doctor not found"));
-    }
 }

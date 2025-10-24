@@ -17,17 +17,17 @@ public class DoctorController {
 
     @PostMapping
     public ResponseEntity<?> addDoctor(@RequestBody DoctorRequest doctorRequest) {
+
         return ResponseEntity.ok(doctorService.createDoctor(doctorRequest));
     }
-
-    @GetMapping("/{email}")
-    public ResponseEntity<?> getDoctorByMail(@PathVariable("email") String email) {
-        return ResponseEntity.ok(doctorService.getDoctorByEmail(email));
-    }
-    
     @GetMapping
     public ResponseEntity<?> getAllDoctors() {
         return ResponseEntity.ok(doctorService.getDoctors());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getDoctorById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(this.doctorService.getDoctorById(id));
     }
 
     @DeleteMapping("/{id}")

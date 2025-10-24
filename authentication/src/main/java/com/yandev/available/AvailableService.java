@@ -14,7 +14,15 @@ public class AvailableService {
         this.availableRepository = availableRepository;
     }
 
-    public Available createAvailable(Available available) {
+    public Available createAvailable(AvailableRequest availableRequest) {
+        Available available = Available
+                .builder()
+                .dateAvailable(availableRequest.getDateAvailable())
+                .endTime(availableRequest.getEndTime())
+                .startTime(availableRequest.getStartTime())
+                .doctor(availableRequest.getDoctor())
+                .build();
+
        return this.availableRepository.save(available);
     }
 
@@ -22,7 +30,10 @@ public class AvailableService {
         return this.availableRepository.findByDoctor(doctor);
     }
 
+
     public List<Available> createAllAvailable(List<Available> availables) {
         return this.availableRepository.saveAll(availables);
     }
+
+
 }
