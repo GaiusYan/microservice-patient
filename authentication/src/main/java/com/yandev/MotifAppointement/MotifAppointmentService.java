@@ -21,6 +21,10 @@ public class MotifAppointmentService {
         return motifAppointmentRepository.save(motifAppointment);
     }
 
+    public List<MotifAppointment> getMotifAppointmentByAppointement(Appointment appointment) {
+        return this.motifAppointmentRepository.findByAppointment(appointment);
+    }
+
 
     public void createAllMotifAppointments(List<Motif> motifs, Appointment appointment) {
         for(Motif motif: motifs) {

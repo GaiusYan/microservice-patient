@@ -39,6 +39,7 @@ public class AppointmentService {
                 .notes(appointmentRequest.getNotes())
                 .doctor(appointmentRequest.getDoctor())
                 .patient(appointmentRequest.getPatient())
+                .status(appointmentRequest.getStatus())
                 .build();
         Appointment appointmentSaved =  appointmentRepository.save(appointment);
         this.motifAppointmentService.createAllMotifAppointments(appointmentRequest.getMotifs(), appointmentSaved);
@@ -50,16 +51,90 @@ public class AppointmentService {
         return appointmentRepository.findAll();
     }
 
-    public List<Appointment> getAppointmentByPatient(Patient patient) {
-        return this.appointmentRepository.findByPatient(patient);
+    public List<AppointmentResponse> getAppointmentByPatient(Long patientId) {
+        Patient patient = this.patientService.getPatientById(patientId);
+        List<Appointment> appointments = appointmentRepository.findByPatient(patient);
+        List<AppointmentResponse> appointmentResponses = new ArrayList<>();
+
+        for (Appointment appointment : appointments) {
+            var motifAppointments = this.motifAppointmentService.getMotifAppointmentByAppointement(appointment);
+            appointmentResponses.add(AppointmentResponse
+                    .builder()
+                    .id(appointment.getId())
+                    .patient(appointment.getPatient())
+                    .doctor(appointment.getDoctor())
+                    .date(LocalDate.parse(appointment.getDateAppointment()))
+                    .status(appointment.getStatus())
+                    .createAt(appointment.getCreatedAt())
+                            .motifs(motifAppointments.stream().map(MotifAppointment::getMotif).toList())
+                    .timeSlot(TimeSlot.builder()
+                            .start(appointment.getAppointmentTimeStart())
+                            .end(appointment.getAppointmentTimeEnd())
+                            .build())
+                    .build());
+        }
+        return appointmentResponses;
     }
 
-    public List<Appointment> getAppointmentByDoctor(Long doctorId) {
+    public List<AppointmentResponse> getAppointmentByDoctor(Long doctorId) {
         Doctor doctor = this.doctorService.getDoctorById(doctorId);
-        return this.appointmentRepository.findByDoctor(doctor);
+        List<Appointment> appointments =  this.appointmentRepository.findByDoctor(doctor);
+        List<AppointmentResponse> appointmentResponses = new ArrayList<>();
+
+        for (Appointment appointment : appointments) {
+            var motifAppointments = this.motifAppointmentService.getMotifAppointmentByAppointement(appointment);
+            appointmentResponses.add(AppointmentResponse
+                    .builder()
+                    .id(appointment.getId())
+                    .patient(appointment.getPatient())
+                    .doctor(appointment.getDoctor())
+                    .date(LocalDate.parse(appointment.getDateAppointment()))
+                    .status(appointment.getStatus())
+                    .createAt(appointment.getCreatedAt())
+                    .motifs(motifAppointments.stream().map(MotifAppointment::getMotif).toList())
+                    .timeSlot(TimeSlot.builder()
+                            .start(appointment.getAppointmentTimeStart())
+                            .end(appointment.getAppointmentTimeEnd())
+                            .build())
+                    .build());
+        }
+        return appointmentResponses;
     }
+
+
+    public List<AppointmentResponse> getAppointmentByDoctorAndStatus(Long doctorId, String status) {
+        Doctor doctor = this.doctorService.getDoctorById(doctorId);
+        List<Appointment> appointments =  this.appointmentRepository.findByDoctorAndStatus(doctor, status);
+        List<AppointmentResponse> appointmentResponses = new ArrayList<>();
+
+        for (Appointment appointment : appointments) {
+            var motifAppointments = this.motifAppointmentService.getMotifAppointmentByAppointement(appointment);
+            appointmentResponses.add(AppointmentResponse
+                    .builder()
+                    .id(appointment.getId())
+                    .patient(appointment.getPatient())
+                    .doctor(appointment.getDoctor())
+                    .date(LocalDate.parse(appointment.getDateAppointment()))
+                    .status(appointment.getStatus())
+                    .createAt(appointment.getCreatedAt())
+                    .motifs(motifAppointments.stream().map(MotifAppointment::getMotif).toList())
+                    .timeSlot(TimeSlot.builder()
+                            .start(appointment.getAppointmentTimeStart())
+                            .end(appointment.getAppointmentTimeEnd())
+                            .build())
+                    .build());
+        }
+        return appointmentResponses;
+    }
+
 
     public List<Appointment> createAllAppointment(List<Appointment> appointments) {
         return this.appointmentRepository.saveAll(appointments);
+    }
+
+    public Appointment updateAppointment(Long id,AppointmentRequest appointmentRequest) {
+        Appointment appointment = this.appointmentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Appointment not found"));
+        appointment.setStatus(appointmentRequest.getStatus());
+        return this.appointmentRepository.save(appointment);
     }
 }

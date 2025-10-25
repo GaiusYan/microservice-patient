@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface MotifAppointmentRepository extends JpaRepository<MotifAppointment, Integer> {
 
+    List<MotifAppointment> findByAppointment(Appointment appointment);
 }
